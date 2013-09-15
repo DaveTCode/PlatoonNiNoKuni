@@ -96,16 +96,9 @@ class Hand():
             - A hand must contain at least one card (this function guarantees
                 that automatically)
         '''
-        if len(self.cards) == 0 and card.name.lower() == "joker":
-            return False
-        elif self.contains_card("joker") and card.name.lower() == "joker":
-            return False
-        elif ((self.contains_card("bishop") or self.contains_card("king")) and 
-              (card.name.lower() == "bishop" or card.name.lower() == "king")):
-            return False
-        else:
-            self.cards.append(card)
-            return True
+        self.cards.append(card)
+        if not self.is_valid():
+            self.cards.pop()
 
     def is_valid(self):
         '''
