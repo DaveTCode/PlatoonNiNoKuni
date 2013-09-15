@@ -52,6 +52,10 @@ class HandValidatorTests(unittest.TestCase):
         hand = Hand([Card.two_hearts])
         self.assertEqual(hand.is_valid(), True)
 
+    def testDuplicate(self):
+        hand = Hand([Card.two_hearts, Card.two_hearts])
+        self.assertEqual(hand.is_valid(), False)
+
 def main():
     unittest.main()
 
