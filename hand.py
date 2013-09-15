@@ -44,11 +44,8 @@ class Hand():
             0 if draw
             -1 if this hand loses
         '''
-        swapped = False
-
         # Swap the hands if either but no both hands contain a joker
-        if operator.xor(self.contains_card("joker"), other.contains_card("joker")):
-            swapped = True
+        swapped = operator.xor(self.contains_card("joker"), other.contains_card("joker"))
 
         # Handle the case where our hand has a king
         if self.contains_card("king"):
@@ -99,6 +96,9 @@ class Hand():
         self.cards.append(card)
         if not self.is_valid():
             self.cards.pop()
+            return False
+
+        return True
 
     def remove_card(self, card):
         '''
@@ -109,6 +109,17 @@ class Hand():
 
             There shouldn't be anyway.
         '''
+        if card in self.cards:
+            ix = self.cards.index(card)
+            self.cards.remove(card)
+
+            if not self.is_valid():
+                self.cards.insert(ix, card)
+                return False
+
+            return True
+
+        return False
 
     def is_valid(self):
         '''
