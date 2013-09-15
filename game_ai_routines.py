@@ -47,4 +47,11 @@ def game_ai_campaign_allocation(campaign):
         campaign.add_card_to_hand(next_no_special(), king)
 
     # 2nd step
+    # Allocate out any number cards at random between remaining hands
+    first_empty_hand = next_no_special()
+    hands_to_distribute_over = HANDS_IN_CAMPAIGN - first_empty_hand
+    for hand_index in range(first_empty_hand, HANDS_IN_CAMPAIGN):
+
+    # Last step
     # Add any jokers to piles. Order is left to right.
+    
