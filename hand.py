@@ -5,7 +5,7 @@ class Hand():
         Represents a hand instance in platoon
     '''
 
-    def __init__(self, cards=[]):
+    def __init__(self, cards = []):
         self.cards = cards
 
     def cards_by_face_value(self):
@@ -18,11 +18,18 @@ class Hand():
         '''
             Check whether this hand contains a card of a specific type
         '''
+        return self.count_card(name) != 0
+
+    def count_card(self, name):
+        '''
+            Determine how many of a particular card type there are.
+        '''
+        count = 0
         for card in self.cards:
             if card.name.lower() == name.lower():
-                return True
+                count += 1
 
-        return False
+        return count
 
     def total(self):
         '''
@@ -31,6 +38,12 @@ class Hand():
         return reduce(lambda x, y: x + y, [card.value for card in self.cards])
 
     def compare(self, other):
+        '''
+            Compare two hands:
+            1 if this hand wins
+            0 if draw
+            -1 if this hand loses
+        '''
         swapped = False
 
         # Swap the hands if either but no both hands contain a joker
@@ -92,6 +105,25 @@ class Hand():
             return False
         else:
             self.cards.append(card)
+            return True
+
+    def is_valid(self):
+        '''
+            Determine whether the hand contains a valid collection of cards.
+
+            Note that this does not test emptiness.
+        '''
+        if len(self.cards) == 1 and self.contains_card("joker"):
+            return False
+        elif self.count_card("joker") > 1:
+            return False
+        elif self.count_card("bishop") > 1:
+            return False
+        elif self.count_card("king") > 1:
+            return False
+        elif self.count_card("bishop") == 1 and self.count_card("king") == 1:
+            return False
+        else: 
             return True
 
     def __str__(self):
