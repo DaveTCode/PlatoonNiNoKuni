@@ -100,6 +100,16 @@ class Hand():
         if not self.is_valid():
             self.cards.pop()
 
+    def remove_card(self, card):
+        '''
+            Remove a specific instance of a card.
+
+            Note that since cards are actually static objects, if there were 
+            two identical cards in a hand this would remove both.
+
+            There shouldn't be anyway.
+        '''
+
     def is_valid(self):
         '''
             Determine whether the hand contains a valid collection of cards.
@@ -108,13 +118,13 @@ class Hand():
         '''
         if len(self.cards) == 1 and self.contains_card("joker"):
             return False
-        elif self.count_card("joker") > 1:
-            return False
-        elif self.count_card("bishop") > 1:
-            return False
-        elif self.count_card("king") > 1:
+        elif (self.count_card("joker") > 1 or
+              self.count_card("bishop") > 1 or
+              self.count_card("king") > 1):
             return False
         elif self.count_card("bishop") == 1 and self.count_card("king") == 1:
+            return False
+        elif len(set(self.cards)) != len(self.cards):
             return False
         else: 
             return True
