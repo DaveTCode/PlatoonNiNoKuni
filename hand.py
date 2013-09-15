@@ -87,8 +87,8 @@ class Hand():
             return False
         elif self.contains_card("joker") and card.name.lower() == "joker":
             return False
-        elif (self.contains_card("bishop") or self.contains_card("king")) and 
-             (card.name.lower() == "bishop" or card.name.lower() == "king"):
+        elif ((self.contains_card("bishop") or self.contains_card("king")) and 
+              (card.name.lower() == "bishop" or card.name.lower() == "king")):
             return False
         else:
             self.cards.append(card)
