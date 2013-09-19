@@ -46,6 +46,29 @@ class Campaign():
         '''
         self.hands = [Hand() for _ in range(HANDS_IN_CAMPAIGN)]
 
+    def next_hand_w_no_card_type(self, *card_types):
+        '''
+            Given a set of card types we want to know which is the first hand 
+            in the campaign that doesn't contain any of these types.
+
+            Card types should be strings like "joker", "2" etc.
+        '''
+        for hand in self.hands:
+            if len([card for card in hand.cards if card.name.lower() in card_types]) == 0:
+                return hand
+
+        return None
+
+    def next_empty_hand(self):
+        '''
+            Find the next empty hand in the campaign.
+        '''
+        for hand in self.hands:
+            if len(hand.cards) == 0:
+                return hand
+
+        return None
+
     def __str__(self):
         output = ""
         for hand in self.hands:
