@@ -8,6 +8,14 @@ class Card():
         self.name = name
         self.suit = suit
 
+    def is_special(self):
+        '''
+            Determine whether the card is one of the special cards (King, 
+            Bishop, Joker).
+        '''
+        name = self.name.lower()
+        return name == "bishop" or name == "king" or name == "joker"
+
     def __str__(self):
         if self.name.lower() == "joker":
             return self.name.lower()
