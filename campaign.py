@@ -73,6 +73,6 @@ class Campaign():
         output = ""
         for hand in self.hands:
             output += str(hand)
-            output += "-----------------------"
+            output += "-----------------------\n"
 
         return output
