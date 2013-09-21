@@ -13,7 +13,7 @@ class Campaign():
         assert(len(cards) == CARDS_IN_CAMPAIGN)
 
         self.cards = cards
-        self.hands = [Hand() for _ in range(HANDS_IN_CAMPAIGN)]
+        self.hands = [Hand([]) for _ in range(HANDS_IN_CAMPAIGN)]
 
     def add_card_to_hand(self, hand_index, card):
         '''
@@ -44,7 +44,8 @@ class Campaign():
         '''
             Wipe all of the hands created so far.
         '''
-        self.hands = [Hand() for _ in range(HANDS_IN_CAMPAIGN)]
+        for hand in self.hands:
+            hand.clear()
 
     def next_hand_w_no_card_type(self, *card_types):
         '''

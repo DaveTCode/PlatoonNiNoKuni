@@ -18,7 +18,7 @@ class Hand():
         '''
             Check whether this hand contains a card of a specific type
         '''
-        return self.count_card(name) != 0
+        return self.count_card(name) > 0
 
     def count_card(self, name):
         '''
@@ -36,6 +36,12 @@ class Hand():
             Total face value of the cards.
         '''
         return reduce(lambda x, y: x + y, [card.value for card in self.cards])
+
+    def clear(self):
+        '''
+            Remove any cards in the hand.
+        '''
+        del self.cards[:]
 
     def compare(self, other):
         '''
