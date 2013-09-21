@@ -31,6 +31,22 @@ class CardNameTests(unittest.TestCase):
     def testJoker(self):
         self.assertEqual(str(Card.joker_red), "joker")
 
+class CardCollectionTests(unittest.TestCase):
+    def testRightNumCards(self):
+        self.assertEqual(len(Card.get_random_set_of_cards(2)), 2)
+
+class ShortFormTests(unittest.TestCase):
+
+    def testShortFormNumber(self):
+        self.assertEqual(Card.two_hearts.short_form(), "2h")
+
+    def testShortFormTen(self):
+        self.assertEqual(Card.ten_clubs.short_form(), "tc")
+
+    def testGetByShortForm(self):
+        self.assertEqual(Card.get_card_from_short_form("tc"), Card.ten_clubs)
+        self.assertEqual(Card.get_card_from_short_form("js"), Card.jack_spades)
+
 def main():
     unittest.main()
 

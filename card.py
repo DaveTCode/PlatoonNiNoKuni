@@ -1,3 +1,5 @@
+import random
+
 class Card():
     '''
         Represents a single card type
@@ -16,11 +18,45 @@ class Card():
         name = self.name.lower()
         return name == "bishop" or name == "king" or name == "joker"
 
+    def short_form(self):
+        '''
+            The short form of a card is 2 characters describing it:
+            2h = two of hearts
+            kd = king of diamonds
+            jr = red joker
+        '''
+        if self.name == "10":
+            return "t" + self.suit.lower()[0]
+        else:
+            return self.name.lower()[0] + self.suit.lower()[0]
+
     def __str__(self):
         if self.name.lower() == "joker":
             return self.name.lower()
         else:
             return self.name.lower() + " of " + self.suit.lower()
+
+    @staticmethod
+    def get_random_set_of_cards(number):
+        '''
+            Get a random collection of the cards which were defined as static 
+            instances on the Card object.
+        '''
+        return random.sample([card for card in vars(Card).values() if isinstance(card, Card)], number)
+
+    @staticmethod
+    def get_card_from_short_form(short_form):
+        '''
+            The short form of a card is 2 characters describing it:
+            2h = two of hearts
+            kd = king of diamonds
+            jr = red joker
+        '''
+        for card in [card for card in vars(Card).values() if isinstance(card, Card)]:
+            if card.short_form() == short_form:
+                return card
+
+        return None
 
 Card.two_hearts = Card(2, "2", "hearts")
 Card.three_hearts = Card(3, "3", "hearts")
@@ -78,5 +114,5 @@ Card.queen_diamonds = Card(10, "Queen", "diamonds")
 Card.king_diamonds = Card(12, "King", "diamonds")
 Card.bishop_diamonds = Card(1, "Bishop", "diamonds")
 
-Card.joker_red = Card(0, "Joker", None)
-Card.joker_black = Card(0, "Joker", None)
+Card.joker_red = Card(0, "Joker", "red")
+Card.joker_black = Card(0, "Joker", "black")

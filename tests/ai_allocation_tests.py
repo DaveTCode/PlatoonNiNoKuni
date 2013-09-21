@@ -24,7 +24,7 @@ class AIAllocationTests(unittest.TestCase):
         '''
             Clear all campaigns each time we run a test.
         '''
-        for campaign in vars(self).keys():
+        for campaign in vars(self).values():
             if isinstance(campaign, Campaign):
                 campaign.clear_hands()
 
