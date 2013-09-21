@@ -56,7 +56,7 @@ class Campaign():
         '''
         for hand in self.hands:
             if len([card for card in hand.cards if card.name.lower() in card_types]) == 0:
-                return hand
+                return self.hands.index(hand)
 
         return None
 
@@ -66,7 +66,7 @@ class Campaign():
         '''
         for hand in self.hands:
             if len(hand.cards) == 0:
-                return hand
+                return self.hands.index(hand)
 
         return None
 

@@ -48,7 +48,7 @@ class CampaignFindHandTests(unittest.TestCase):
         self.campaign.add_card_to_hand(3, Card.eight_hearts)
 
     def testFirstEmptyHand(self):
-        self.assertEqual(self.campaign.next_empty_hand(), self.campaign.hands[4])
+        self.assertEqual(self.campaign.next_empty_hand(), 4)
 
     def testNoEmptyHand(self):
         self.campaign.add_card_to_hand(4, Card.king_hearts)
@@ -56,13 +56,13 @@ class CampaignFindHandTests(unittest.TestCase):
         self.campaign.remove_card_from_hand(4, Card.king_hearts)
 
     def testFirstHandMissingJoker(self):
-        self.assertEqual(self.campaign.next_hand_w_no_card_type("joker"), self.campaign.hands[0])
+        self.assertEqual(self.campaign.next_hand_w_no_card_type("joker"), 0)
 
     def testFirstHandMissingBishop(self):
-        self.assertEqual(self.campaign.next_hand_w_no_card_type("bishop"), self.campaign.hands[1])
+        self.assertEqual(self.campaign.next_hand_w_no_card_type("bishop"), 1)
 
     def testFirstHandMissingEitherOfTwo(self):
-        self.assertEqual(self.campaign.next_hand_w_no_card_type("bishop", "joker"), self.campaign.hands[2])
+        self.assertEqual(self.campaign.next_hand_w_no_card_type("bishop", "joker"), 2)
 
 def main():
     unittest.main()

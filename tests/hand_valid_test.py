@@ -5,7 +5,7 @@ from Platoon.card import Card
 class HandValidatorTests(unittest.TestCase):
 
     def testEmptyHand(self):
-        hand = Hand()
+        hand = Hand([])
         self.assertEqual(hand.is_valid(), True)
 
     def testJokerHand(self):
