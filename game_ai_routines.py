@@ -17,13 +17,13 @@ class GameAIRoutine():
                contains a number card then all cards to it's right also do.
             3) Allocate out jokers from left to right.
         '''
-        self.allocate_specials(campaign)
+        self._allocate_specials(campaign)
 
-        self.allocate_numbers(campaign)
+        self._allocate_numbers(campaign)
 
-        self.allocate_jokers(campaign)
+        self._allocate_jokers(campaign)
 
-    def allocate_specials(self, campaign):
+    def _allocate_specials(self, campaign):
         '''
             Allocate out the special cards that are in the campaign.
 
@@ -35,7 +35,7 @@ class GameAIRoutine():
             for card in [card for card in campaign.cards if card.name.lower() == special_type]:
                 campaign.add_card_to_hand(campaign.next_hand_w_no_card_type("bishop", "king"), card)
 
-    def allocate_numbers(self, campaign):
+    def _allocate_numbers(self, campaign):
         '''
             Allocate number cards (including Queen and Jack) out between the 
             hands.
@@ -66,7 +66,7 @@ class GameAIRoutine():
             hand_index = (number_cards.index(card) % piles_to_use) + first_pile_to_use
             campaign.add_card_to_hand(hand_index, card)
 
-    def allocate_jokers(self, campaign):
+    def _allocate_jokers(self, campaign):
         '''
             Allocate out all jokers that are in the campaign.
 
