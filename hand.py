@@ -5,7 +5,7 @@ class Hand():
         Represents a hand instance in platoon
     '''
 
-    def __init__(self, cards = []):
+    def __init__(self, cards):
         self.cards = cards
 
     def cards_by_face_value(self):
