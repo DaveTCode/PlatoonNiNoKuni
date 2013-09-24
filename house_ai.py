@@ -1,12 +1,13 @@
 import random
 from campaign import HANDS_IN_CAMPAIGN
+from ai import GameAI
 
-class GameAIRoutine():
+class HouseAI(GameAI):
 
     def __init__(self):
-        pass
+        GameAI.__init__(self, "Implementation of the house AI")
 
-    def game_ai_campaign_allocation(self, campaign):
+    def distribute_hands(self, campaign):
         '''
             Replicate the game AI method of allocating out cards to hands.
 
@@ -22,6 +23,9 @@ class GameAIRoutine():
         self._allocate_numbers(campaign)
 
         self._allocate_jokers(campaign)
+
+    def play_hand(self, campaign, opponent_campaign):
+        raise NotImplementedError("Doesn't work yet. Sorry.")
 
     def _allocate_specials(self, campaign):
         '''

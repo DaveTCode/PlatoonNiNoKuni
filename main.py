@@ -3,7 +3,7 @@ import argparse
 from campaign_permutation_comparison import CampaignPermutationComparison
 from campaign import Campaign
 from card import Card
-from game_ai_routines import GameAIRoutine
+from house_ai import HouseAI
 
 class Player():
     def __init__(self, is_random, is_ai):

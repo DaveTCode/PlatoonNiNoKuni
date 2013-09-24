@@ -15,6 +15,13 @@ class Campaign():
         self.cards = cards
         self.hands = [Hand([]) for _ in range(HANDS_IN_CAMPAIGN)]
 
+    def remaining_cards(self):
+        '''
+            List of the remaining cards which have not been allocated to any 
+            hand.
+        '''
+        return [card for card in self.cards if not card in sum(map(lambda h: h.cards, self.hands), []) ]
+
     def add_card_to_hand(self, hand_index, card):
         '''
             Add a single card to a hand and return whether that card was valid 
@@ -47,6 +54,20 @@ class Campaign():
         for hand in self.hands:
             hand.clear()
 
+    def first_hand_w_card_type(self, card_type):
+        '''
+            Given a single card type this returns the first hand which contains
+            that card.
+
+            Returns None if can't find a hand.
+        '''
+        for hand in self.hands:
+            for card in hand.cards:
+                if card.name.lower() == card_type:
+                    return self.hands.index(hand)
+
+        return None
+
     def next_hand_w_no_card_type(self, *card_types):
         '''
             Given a set of card types we want to know which is the first hand 
@@ -63,6 +84,8 @@ class Campaign():
     def next_empty_hand(self):
         '''
             Find the next empty hand in the campaign.
+
+            Returns an index.
         '''
         for hand in self.hands:
             if len(hand.cards) == 0:

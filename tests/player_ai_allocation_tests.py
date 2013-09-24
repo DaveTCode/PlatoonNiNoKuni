@@ -1,9 +1,9 @@
 import unittest
-from Platoon.card import Card
+from Platoon.player_ai import PlayerAI
 from Platoon.campaign import Campaign
-from Platoon.game_ai_routines import GameAIRoutine
+from Platoon.card import Card
 
-class AIAllocationTests(unittest.TestCase):
+class PlayerAIAllocationTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
@@ -28,24 +28,22 @@ class AIAllocationTests(unittest.TestCase):
             if isinstance(campaign, Campaign):
                 campaign.clear_hands()
 
-    def testSpecialLocationTwoK(self):
-        GameAIRoutine().game_ai_campaign_allocation(self.two_k_campaign)
-        self.assertEqual(self.two_k_campaign.hands[0].cards[0].name.lower(), "king")
-        self.assertEqual(self.two_k_campaign.hands[1].cards[0].name.lower(), "king")
+    def testAllAllocation(self):
+        for campaign in [campaign for var in vars(self).values() if isinstance(var, Campaign)]:
+            PlayerAI().distribute_hands(campaign)
+            for hand in campaign.hands:
+                self.assertNotEqual(len(hand.cards), 0)
 
-    def testSpecialLocationKB(self):
-        GameAIRoutine().game_ai_campaign_allocation(self.k_bishop_campaign)
-        self.assertEqual(self.k_bishop_campaign.hands[0].cards[0].name.lower(), "bishop")
-        self.assertEqual(self.k_bishop_campaign.hands[1].cards[0].name.lower(), "king")
+    def testHandValidity(self):
+        for campaign in [campaign for var in vars(self).values() if isinstance(var, Campaign)]:
+            PlayerAI().distribute_hands(campaign)
+            for hand in campaign.hands:
+                self.assertTrue(hand.is_valid())
 
-    def testSpecialLocationKBJ(self):
-        GameAIRoutine().game_ai_campaign_allocation(self.k_bishop_joker_campaign)
-        self.assertEqual(self.k_bishop_joker_campaign.hands[0].cards[0].name.lower(), "bishop")
-        self.assertEqual(self.k_bishop_joker_campaign.hands[1].cards[0].name.lower(), "king")
-        self.assertEqual(self.k_bishop_joker_campaign.hands[0].cards[-1].name.lower(), "joker")
+    def testKingAllocation(self):
+        for campaign in [campaign for var in vars(self).values() if isinstance(var, Campaign)]:
+            PlayerAI().distribute_hands(campaign)
 
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()
+            for hand in campaign.hands():
+                if hand.contains_card("king"):
+                    self.assertEqual(len(hand.cards), 1)
